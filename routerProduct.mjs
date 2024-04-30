@@ -38,6 +38,26 @@ app.get("/", (req, res) => {
   res.send("網站首頁")
 });
 
+app.get("/api/products/search", (req, res) => {
+  const id = req.query.id
+  res.status(200).json({message: `用 ${id} 做為搜尋條件搜尋產品 `});
+});
+
+app.get("/api/products/:id", (req, res) => {
+  const id = req.params.id
+  res.status(200).json({message: `得到產品 ID 為 ${id} 的檔案`});
+});
+
+app.put("/api/products/:id", upload.none(), (req, res) => {
+  const id = req.params.id;
+  res.status(200).json({message: `更新 ID 為 ${id} 的產品 `});
+});
+
+app.delete("/api/products/:id", (req, res) => {
+  const id = req.params.id;
+  res.status(200).json({message: `刪除 ID 為 ${id} 的產品 `});
+});
+
 app.get("/api/products", (req, res) => {
   res.status(200).json({message: "得到所有產品"});
 });
@@ -45,30 +65,6 @@ app.get("/api/products", (req, res) => {
 app.post("/api/products", upload.none(), (req, res) => {
   res.status(200).json({message: "新增一個產品"});
 });
-
-
-
-app.get("/api/products/search/:id", (req, res) => {
-  const id = req.query.id
-  res.status(200).json({message: `使用 ID 作為搜尋條件來搜尋使用者 ${id}`});
-});
-
-app.get("/api/users/:id", (req, res) => {
-  const id = req.params.id;
-  res.status(200).json({message: `獲取特定 ID 的使用者 ${id}`});
-});
-
-app.put("/api/products/:id", upload.none(), (req, res) => {
-  const id = req.params.id;
-  res.status(200).json({message: `更新特定 ID 的使用者 ${id}`});
-});
-
-app.delete("/api/users/:id", (req, res) => {
-  const id = req.params.id;
-  res.status(200).json({message: `刪除特定 ID 的使用者 ${id}`});
-});
-
-
 
 
 app.listen(3000, () => {
